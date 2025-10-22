@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useSelector, useDispatch } from 'react-redux';
 import { Rectangle, ImageElement } from './ShapeElement';
@@ -8,7 +8,39 @@ const CanvasArea = () => {
   const dispatch = useDispatch();
   const { items, selectedId } = useSelector((state) => state.canvas);
   const stageRef = useRef();
-  const stageSize = { width: 1200, height: 650 };
+  const containerRef = useRef();
+  const [stageSize, setStageSize] = useState({ width: 1200, height: 650 });
+  const [scale, setScale] = useState(1);
+
+  // Update canvas size based on viewport
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const container = containerRef.current;
+        const padding = window.innerWidth < 768 ? 16 : 48; // Less padding on mobile
+        const availableWidth = container.clientWidth - padding;
+        const availableHeight = container.clientHeight - padding;
+
+        const baseWidth = 1200;
+        const baseHeight = 650;
+
+        // Calculate scale to fit
+        const scaleX = availableWidth / baseWidth;
+        const scaleY = availableHeight / baseHeight;
+        const newScale = Math.min(scaleX, scaleY, 1); // Don't scale up, only down
+
+        setScale(newScale);
+        setStageSize({
+          width: baseWidth,
+          height: baseHeight
+        });
+      }
+    };
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   // Check if click is on empty space
   const checkDeselect = (e) => {
@@ -39,12 +71,18 @@ const CanvasArea = () => {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center p-6 bg-gray-100">
+    <div ref={containerRef} className="flex-1 flex items-center justify-center p-2 md:p-6 bg-gray-100 overflow-auto">
       <div className="relative">
-        <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-lg md:rounded-xl shadow-2xl overflow-hidden">
           <Stage
             width={stageSize.width}
             height={stageSize.height}
+            scaleX={scale}
+            scaleY={scale}
+            style={{
+              width: stageSize.width * scale,
+              height: stageSize.height * scale
+            }}
             onMouseDown={checkDeselect}
             onTouchStart={checkDeselect}
             ref={stageRef}
@@ -83,10 +121,12 @@ const CanvasArea = () => {
             </Layer>
           </Stage>
         </div>
-        
+
         {/* Canvas Info */}
-        <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-sm">
-          Canvas: {stageSize.width} x {stageSize.height}px | Elements: {items.length}
+        <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 bg-black/70 text-white px-2 py-1 md:px-3 md:py-2 rounded-lg text-xs md:text-sm">
+          <span className="hidden sm:inline">Canvas: {stageSize.width} x {stageSize.height}px | </span>
+          Elements: {items.length}
+          {scale < 1 && <span className="hidden md:inline"> | Scale: {Math.round(scale * 100)}%</span>}
         </div>
       </div>
     </div>

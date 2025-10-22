@@ -31,14 +31,15 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
+    <div className="w-full md:w-80 bg-white border-t md:border-t-0 md:border-l border-gray-200 flex flex-col max-h-64 md:max-h-none">
       {/* Sidebar Header */}
-      <div className="p-4 border-b border-gray-200 bg-linear-to-r from-primary-50 to-primary-100">
-        <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+      <div className="p-3 md:p-4 border-b border-gray-200 bg-linear-to-r from-primary-50 to-primary-100">
+        <h2 className="text-base md:text-lg font-semibold text-gray-800 flex items-center gap-2">
           <span>📋</span>
-          Elements Overview
+          <span className="hidden sm:inline">Elements Overview</span>
+          <span className="sm:hidden">Elements</span>
         </h2>
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="text-xs md:text-sm text-gray-600 mt-1">
           {items.length} element{items.length !== 1 ? 's' : ''} on canvas
         </p>
       </div>
@@ -46,17 +47,17 @@ const Sidebar = () => {
       {/* Elements List */}
       <div className="flex-1 overflow-y-auto">
         {items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500 p-8 text-center">
-            <div className="text-4xl mb-4">🎨</div>
-            <p className="text-lg font-medium mb-2">No elements yet</p>
-            <p className="text-sm">Add rectangles or images to see them here</p>
+          <div className="flex flex-col items-center justify-center h-full text-gray-500 p-4 md:p-8 text-center">
+            <div className="text-3xl md:text-4xl mb-2 md:mb-4">🎨</div>
+            <p className="text-base md:text-lg font-medium mb-1 md:mb-2">No elements yet</p>
+            <p className="text-xs md:text-sm">Add rectangles or images to see them here</p>
           </div>
         ) : (
-          <div className="p-4 space-y-3">
+          <div className="p-2 md:p-4 space-y-2 md:space-y-3">
             {items.map((item) => (
               <div
                 key={item.id}
-                className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
+                className={`p-3 md:p-4 rounded-lg md:rounded-xl border-2 transition-all duration-200 cursor-pointer group ${
                   selectedId === item.id
                     ? 'border-primary-500 bg-primary-50 shadow-md'
                     : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
@@ -64,25 +65,25 @@ const Sidebar = () => {
                 onClick={() => handleItemClick(item.id)}
               >
                 {/* Item Header */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`text-2xl ${selectedId === item.id ? 'text-primary-600' : 'text-gray-600'}`}>
+                <div className="flex items-center justify-between mb-2 md:mb-3">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <div className={`text-xl md:text-2xl ${selectedId === item.id ? 'text-primary-600' : 'text-gray-600'}`}>
                       {getItemIcon(item.type)}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">
+                      <h3 className="font-semibold text-sm md:text-base text-gray-800">
                         {getItemTypeName(item.type)} {item.id.split('_')[1]}
                       </h3>
                       <p className="text-xs text-gray-500 capitalize">{item.type}</p>
                     </div>
                   </div>
-                  
+
                   <button
                     onClick={(e) => handleDeleteClick(item.id, e)}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
-                             w-6 h-6 flex items-center justify-center rounded-full 
+                    className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200
+                             w-6 h-6 flex items-center justify-center rounded-full
                              bg-red-500 text-white text-xs hover:bg-red-600
-                             focus:opacity-100 focus:outline-none"
+                             focus:opacity-100 focus:outline-none touch-manipulation"
                     title="Delete element"
                   >
                     ×
@@ -155,7 +156,7 @@ const Sidebar = () => {
       </div>
 
       {/* Sidebar Footer */}
-      <div className="p-4 border-t border-gray-200 bg-gray-50">
+      <div className="p-2 md:p-4 border-t border-gray-200 bg-gray-50">
         <div className="text-xs text-gray-600 space-y-1">
           <div className="flex justify-between">
             <span>Total elements:</span>
@@ -168,14 +169,14 @@ const Sidebar = () => {
             </span>
           </div>
         </div>
-        
+
         {/* Quick Actions */}
-        <div className="mt-3 flex gap-2">
+        <div className="mt-2 md:mt-3 flex gap-2">
           {selectedId && (
             <button
               onClick={() => dispatch(deleteItem(selectedId))}
-              className="flex-1 bg-red-500 text-white py-2 px-3 rounded-lg text-xs font-medium 
-                       hover:bg-red-600 transition-colors duration-200 flex items-center justify-center gap-1"
+              className="flex-1 bg-red-500 text-white py-2 px-3 rounded-lg text-xs font-medium
+                       hover:bg-red-600 transition-colors duration-200 flex items-center justify-center gap-1 touch-manipulation"
             >
               <span>🗑️</span>
               Delete Selected
