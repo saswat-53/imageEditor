@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* Tailwind v4 Configuration using CSS */
+@theme {
+  /* Custom Colors */
+  --color-primary-500: #667eea;
+  --color-primary-600: #5a67d8;
+  --color-primary-700: #4c51bf;
+  
+  --color-secondary-500: #764ba2;
+  --color-secondary-600: #6b4199;
+  --color-secondary-700: #5e3a87;
+
+  /* Custom Animations */
+  --animate-fade-in: fadeIn 0.3s ease-in-out;
+  --animate-slide-in: slideIn 0.3s ease-in-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Component Styles */
+@layer components {
+  /* Custom scrollbar styles */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgb(243 244 246);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-primary-500);
+    border-radius: 9999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-600);
+  }
+
+  /* Gradient backgrounds using custom colors */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-secondary-500) 100%);
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: var(--animate-fade-in);
+  }
+
+  .animate-slide-in {
+    animation: var(--animate-slide-in);
+  }
+}
+
+/* Utility Extensions */
+@layer utilities {
+  /* Custom text colors */
+  .text-primary-500 { color: var(--color-primary-500); }
+  .text-primary-600 { color: var(--color-primary-600); }
+  .text-primary-700 { color: var(--color-primary-700); }
+  
+  .text-secondary-500 { color: var(--color-secondary-500); }
+  .text-secondary-600 { color: var(--color-secondary-600); }
+  .text-secondary-700 { color: var(--color-secondary-700); }
+
+  /* Custom background colors */
+  .bg-primary-500 { background-color: var(--color-primary-500); }
+  .bg-primary-600 { background-color: var(--color-primary-600); }
+  .bg-primary-700 { background-color: var(--color-primary-700); }
+  
+  .bg-secondary-500 { background-color: var(--color-secondary-500); }
+  .bg-secondary-600 { background-color: var(--color-secondary-600); }
+  .bg-secondary-700 { background-color: var(--color-secondary-700); }
+
+  /* Custom border colors */
+  .border-primary-500 { border-color: var(--color-primary-500); }
+  .border-primary-600 { border-color: var(--color-primary-600); }
+}
