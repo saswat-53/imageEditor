@@ -126,7 +126,3 @@ Modern browsers with HTML5 Canvas support:
 - Chrome/Edge (recommended)
 - Firefox
 - Safari
-
-## License
-
-This project is part of a Udemy course for educational purposes.
