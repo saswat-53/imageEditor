@@ -20,12 +20,12 @@ function App() {
     <div className="h-screen flex flex-col bg-gray-50">
       {/* Controls Bar */}
       <Controls />
-      
+
       {/* Main Content Area */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Canvas Area */}
         <CanvasArea />
-        
+
         {/* Sidebar */}
         <Sidebar />
       </div>

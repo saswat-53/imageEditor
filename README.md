@@ -22,6 +22,14 @@ A powerful and interactive canvas editor built with React, Redux, and Konva. Cre
 - **Delete**: Remove selected elements with a single click
 - **Clear Storage**: Reset the entire application state
 
+### Mobile-Responsive Design
+- **Adaptive Layout**: Automatically adjusts to screen size (mobile, tablet, desktop)
+- **Touch Support**: Full touch gesture support for mobile devices
+- **Responsive Canvas**: Canvas scales down to fit smaller screens while maintaining aspect ratio
+- **Compact Controls**: Buttons and text adapt to available screen space
+- **Vertical Layout**: On mobile, sidebar moves below canvas for better usability
+- **Optimized Touch Targets**: Larger touch areas for better mobile interaction
+
 ## Tech Stack
 
 - **React 19** - UI library
@@ -126,3 +134,15 @@ Modern browsers with HTML5 Canvas support:
 - Chrome/Edge (recommended)
 - Firefox
 - Safari
+- Mobile browsers (iOS Safari, Chrome Mobile, Samsung Internet)
+
+## Responsive Breakpoints
+
+The application uses Tailwind CSS responsive design with these breakpoints:
+- **Mobile**: < 640px (sm) - Compact layout, vertical sidebar
+- **Tablet**: 640px - 768px (md) - Intermediate layout
+- **Desktop**: ≥ 768px (md+) - Full horizontal layout with sidebar
+
+## License
+
+This project is part of a Udemy course for educational purposes.
